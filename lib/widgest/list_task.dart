@@ -9,6 +9,7 @@ class ListViewTask extends StatelessWidget {
       children: <Widget>[
         ListTileTask(),
         ListTileTask(),
+        ListTileTask(),
       ],
     );
   }
