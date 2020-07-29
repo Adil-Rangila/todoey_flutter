@@ -2,8 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todoey_flutter/screens/add_task_screen.dart';
 import 'package:todoey_flutter/widgest/list_task.dart';
+import 'package:todoey_flutter/models/task.dart';
 
-class TasksScreen extends StatelessWidget {
+class TasksScreen extends StatefulWidget {
+  @override
+  _TasksScreenState createState() => _TasksScreenState();
+}
+
+class _TasksScreenState extends State<TasksScreen> {
+  List<Task> tasks = [
+    Task(name: 'Buy SSD'),
+    Task(name: 'Buy Laptop'),
+    Task(name: 'Buy MAC Pro'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +48,7 @@ class TasksScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '12 Task Added',
+                  '${tasks.length} Task Added',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18.0,
@@ -56,7 +68,7 @@ class TasksScreen extends StatelessWidget {
                   topRight: Radius.circular(40.0),
                 ),
               ),
-              child: ListViewTask(),
+              child: ListViewTask(tasks),
             ),
           ),
         ],
@@ -70,7 +82,12 @@ class TasksScreen extends StatelessWidget {
                     child: Container(
                       padding: EdgeInsets.only(
                           bottom: MediaQuery.of(context).viewInsets.bottom),
-                      child: AddTaskScreen(),
+                      child: AddTaskScreen((newTaskTitle) {
+                        setState(() {
+                          tasks.add(Task(name: newTaskTitle));
+                        });
+                        Navigator.pop(context);
+                      }),
                     ),
                   ));
         },
