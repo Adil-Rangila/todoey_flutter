@@ -14,9 +14,10 @@ class ListViewTask extends StatelessWidget {
               taskTitle: taskData.tasks[index].name,
               isChecked: taskData.tasks[index].isDone,
               checkBoxCallBack: (checked) {
-//            setState(() {
-//              widget.tasks[index].toggleDone();
-//            });
+                taskData.updateTask(taskData.tasks[index]);
+              },
+              deleteCallBack: () {
+                taskData.deleteList(taskData.tasks[index]);
               },
             );
           },
