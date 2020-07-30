@@ -2,20 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todoey_flutter/screens/add_task_screen.dart';
 import 'package:todoey_flutter/widgest/list_task.dart';
-import 'package:todoey_flutter/models/task.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey_flutter/models/task_data.dart';
 
-class TasksScreen extends StatefulWidget {
-  @override
-  _TasksScreenState createState() => _TasksScreenState();
-}
-
-class _TasksScreenState extends State<TasksScreen> {
-  List<Task> tasks = [
-    Task(name: 'Buy SSD'),
-    Task(name: 'Buy Laptop'),
-    Task(name: 'Buy MAC Pro'),
-  ];
-
+class TasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +38,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   ),
                 ),
                 Text(
-                  '${tasks.length} Task Added',
+                  '${Provider.of<TaskData>(context).taskCount} Task Added',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18.0,
@@ -68,7 +58,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   topRight: Radius.circular(40.0),
                 ),
               ),
-              child: ListViewTask(tasks),
+              child: ListViewTask(),
             ),
           ),
         ],
@@ -82,12 +72,7 @@ class _TasksScreenState extends State<TasksScreen> {
                     child: Container(
                       padding: EdgeInsets.only(
                           bottom: MediaQuery.of(context).viewInsets.bottom),
-                      child: AddTaskScreen((newTaskTitle) {
-                        setState(() {
-                          tasks.add(Task(name: newTaskTitle));
-                        });
-                        Navigator.pop(context);
-                      }),
+                      child: AddTaskScreen(),
                     ),
                   ));
         },
